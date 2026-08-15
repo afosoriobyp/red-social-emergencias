@@ -1,4 +1,4 @@
-# EmergiAyuda 🚨
+# JuntosxRoldanillo 🚨
 
 **Red social de respuesta ante emergencias** — una PWA construida con Next.js (App Router) + MongoDB Atlas para reportar y coordinar ayuda en tiempo real durante terremotos, accidentes, derrumbes, conflictos y otras emergencias.
 
@@ -13,7 +13,7 @@
 - 🎁 **Donaciones** — ofertas y necesidades de ayuda.
 - 📦 **Puntos de Acopio** — centros de recepción de ayuda.
 - 🤝 **Voluntarios** — oferta de voluntariado y disponibilidad.
-- 🏥 **Atención Médica** — necesidades de centros y urgencias.
+- 🏥 **Atención Médica** — necesidades de centros y urgencias.no su
 - 🗺️ **Mapa** — vista geográfica de todos los incidentes.
 
 ### Vistas dedicadas por canal

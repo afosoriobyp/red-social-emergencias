@@ -1,6 +1,6 @@
 # Plan: Fotos en AWS S3 (subida pre-firmada)
 
-> Proyecto: EmergiAyuda · Estado: **pendiente de implementación**
+> Proyecto: JuntosxRoldanillo · Estado: **pendiente de implementación**
 
 ## Objetivo
 Migrar el almacenamiento de fotos de reportes desde **base64 en MongoDB** hacia **AWS S3** mediante **subida directa con URL pre-firmada (PUT)**, y **borrar la foto del bucket al eliminar el reporte** o el usuario.

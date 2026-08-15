@@ -14,14 +14,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EmergiAyuda · Red de respuesta ante emergencias",
+  title: "JuntosxRoldanillo · Red de respuesta ante emergencias",
   description:
     "Red social para reportar emergencias (terremotos, accidentes, derrumbes, conflictos), coordinar donaciones, puntos de acopio, voluntarios y atención médica en tiempo real.",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "EmergiAyuda",
+    title: "JuntosxRoldanillo",
   },
 };
 

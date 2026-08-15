@@ -36,6 +36,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# deployment docs (local only)
+GIT_DEPLOY_VERCEL.md
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.GIT_DEPLOY_VERCEL

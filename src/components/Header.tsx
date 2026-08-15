@@ -16,7 +16,7 @@ export default async function Header() {
           </span>
           <div className="min-w-0">
             <h1 className="truncate text-lg font-extrabold leading-tight text-white">
-              Emergi<span className="text-red-400">Ayuda</span>
+              Juntos<span className="text-red-400">xRoldanillo</span>
             </h1>
             <p className="text-[11px] font-medium text-slate-400">
               Red ciudadana de respuesta ante emergencias

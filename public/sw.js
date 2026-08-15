@@ -25,7 +25,7 @@ self.addEventListener("push", (event) => {
   } catch {
     /* mensaje simple */
   }
-  const title = payload.title || "EmergiAyuda";
+  const title = payload.title || "JuntosxRoldanillo";
   const options = {
     body: payload.body || "Hay una nueva alerta de emergencia.",
     icon: "/icon.svg",

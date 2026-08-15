@@ -67,7 +67,7 @@ export default function AuthForm() {
           <Siren size={28} />
         </span>
         <h1 className="mt-4 text-2xl font-extrabold text-white">
-          Emergi<span className="text-red-400">Ayuda</span>
+          Juntos<span className="text-red-400">xRoldanillo</span>
         </h1>
         <p className="mt-1 text-center text-sm text-slate-400">
           {mode === "login"
