@@ -79,7 +79,7 @@ export default function ReportCard({
 
   const origin = typeof window !== "undefined" ? location.origin : "";
   const shareUrl = `${origin}?rc=${report.id}`;
-  const shareText = `🚨 ${GRAVITY_META[report.gravity].label} · ${CATEGORY_LABELS[report.category]} · ${report.title}`;
+  const shareText = `*${GRAVITY_META[report.gravity].label} · ${CATEGORY_LABELS[report.category]} · ${report.title}*`;
   const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&src=emergiayuda`;
   const waUrl = `https://wa.me/?text=${encodeURIComponent(`${shareText}\n\n${shareUrl}`)}`;
   const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
