@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Report,
   Comment,
@@ -73,6 +73,14 @@ export default function ReportCard({
   const [commentText, setCommentText] = useState("");
   const [sendingComment, setSendingComment] = useState(false);
   const [commentError, setCommentError] = useState("");
+  const [shareOpen, setShareOpen] = useState(false);
+  const shareRef = useRef<HTMLDivElement>(null);
+
+  const shareUrl = `${location.origin}?rc=${report.id}`;
+  const shareText = `🚨 ${GRAVITY_META[report.gravity].label} · ${CATEGORY_LABELS[report.category]} · ${report.title}`;
+  const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+  const waUrl = `https://wa.me/?text=${encodeURIComponent(`${shareText}\n\n${shareUrl}`)}`;
+  const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
   const [reactError, setReactError] = useState("");
   const [myReactions, setMyReactions] = useState<string[]>(() => {
     if (typeof window === "undefined") return [];
@@ -83,6 +91,16 @@ export default function ReportCard({
       return [];
     }
   });
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (shareOpen && shareRef.current && !shareRef.current.contains(e.target as Node)) {
+        setShareOpen(false);
+      }
+    }
+    if (shareOpen) document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [shareOpen]);
 
   async function openThread() {
     if (threadOpen) {
@@ -308,16 +326,64 @@ export default function ReportCard({
           )}
         </button>
 
+        <div className="relative inline-flex items-center" ref={shareRef}>
         <button
-          onClick={() => {
-            const url = `${location.origin}?rc=${report.id}`;
-            navigator.clipboard?.writeText(url);
-          }}
+          onClick={() => setShareOpen(!shareOpen)}
           className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-violet-50 text-violet-600 transition hover:bg-violet-100"
           title="Compartir"
+          aria-expanded={shareOpen}
         >
           <Share2 size={14} />
         </button>
+
+        {shareOpen && (
+          <div className="animate-in fade-in-0 zoom-in-95 absolute bottom-full right-0 mb-2 w-48 rounded-xl border border-slate-200 bg-white py-1 shadow-lg">
+            <button
+              onClick={() => navigator.clipboard?.writeText(shareUrl)}
+              className="flex items-center gap-2 w-full px-3 py-2 text-left text-xs text-slate-600 hover:bg-slate-50"
+            >
+              <span>📋</span> Copiar enlace
+            </button>
+            <a
+              href={fbUrl}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setShareOpen(false)}
+              className="flex items-center gap-2 w-full px-3 py-2 text-left text-xs text-blue-600 hover:bg-blue-50"
+            >
+              <span>📘</span> Facebook
+            </a>
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setShareOpen(false)}
+              className="flex items-center gap-2 w-full px-3 py-2 text-left text-xs text-green-600 hover:bg-green-50"
+            >
+              <span>💚</span> WhatsApp
+            </a>
+            <a
+              href={telegramUrl}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setShareOpen(false)}
+              className="flex items-center gap-2 w-full px-3 py-2 text-left text-xs text-sky-600 hover:bg-sky-50"
+            >
+              <span>✈️</span> Telegram
+            </a>
+            <button
+              onClick={() => {
+                navigator.clipboard?.writeText(shareUrl);
+                alert("Instagram no abre directamente. Enlace copiado. Pega en tu historia o publicación.");
+                setShareOpen(false);
+              }}
+              className="flex items-center gap-2 w-full px-3 py-2 text-left text-xs text-pink-600 hover:bg-pink-50"
+            >
+              <span>📷</span> Instagram
+            </button>
+          </div>
+        )}
+      </div>
 
         <a
           href={`https://www.google.com/maps?q=${report.lat},${report.lng}`}
