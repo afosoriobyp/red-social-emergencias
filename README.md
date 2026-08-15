@@ -191,14 +191,16 @@ ADMIN_PHONES="<CODIGO_PAIS><NUMERO_ADMIN_1>,<CODIGO_PAIS><NUMERO_ADMIN_2>"
 DEFAULT_WHATSAPP="<CODIGO_PAIS><NUMERO>"
 NEXT_PUBLIC_DEFAULT_WHATSAPP="<CODIGO_PAIS><NUMERO>"
 
-# VAPID para Web Push (genera con: npx web-push generate-vapid-keys)
-VAPID_PUBLIC="B..."
-VAPID_PRIVATE="..."
+# Web Push (VAPID) - genera con: npx web-push generate-vapid-keys
+WEB_PUSH_PUBLIC_KEY=""
+WEB_PUSH_PRIVATE_KEY=""
 VAPID_SUBJECT="mailto:admin@tudominio.com"
 
 # Opcional: Redis Pub/Sub para SSE multi-instancia (producción)
 # REDIS_URL="redis://user:pass@host:6379"
 ```
+
+> 💡 Copia `.env.example` a `.env.local` y reemplaza con tus credenciales reales. **Nunca cometas `.env.local`.**
 
 ### 4) Ejecutar en desarrollo
 
@@ -266,7 +268,7 @@ Se recomienda **Vercel** (integración nativa con Next.js).
 
 1. Sube el proyecto a tu repositorio (GitHub).
 2. Importa en Vercel.
-3. Configura las variables de entorno: `MONGODB_URI`, `AUTH_SECRET`, `ADMIN_PHONES`, `DEFAULT_WHATSAPP`, `VAPID_*`, **`REDIS_URL`** (opcional, para SSE multi-instancia).
+3. Configura las variables de entorno: `MONGODB_URI`, `AUTH_SECRET`, `ADMIN_PHONES`, `DEFAULT_WHATSAPP`, `WEB_PUSH_PUBLIC_KEY`, `WEB_PUSH_PRIVATE_KEY`, `VAPID_SUBJECT`, y **`REDIS_URL`** (opcional, para SSE multi-instancia).
 4. Despliega. La PWA quedará instalable y con service worker.
 
 > **Tiempo real en producción:** el bus SSE usa **memoria** por defecto (mono-instancia). Si usas Vercel (serverless multi-instancia) **configura `REDIS_URL`** para activar el adaptador Redis Pub/Sub y lograr sincronización global entre instancias. Sin Redis, cada instancia mantiene sus propias conexiones SSE y los eventos no cruzarán entre ellas.
