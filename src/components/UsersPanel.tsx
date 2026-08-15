@@ -185,7 +185,7 @@ export default function UsersPanel() {
           <input
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            placeholder="Teléfono (WhatsApp, ej. 573154993117)"
+            placeholder="Teléfono (WhatsApp, ej. 57XXXXXXXXX)"
             required
             className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-blue-500"
           />

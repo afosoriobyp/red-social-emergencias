@@ -447,7 +447,7 @@ function seedReports(): Report[] {
       lat: -16.4897,
       lng: -68.1193,
       address: "Av. Principal, zona centro",
-      contactPhone: "59171234567",
+      contactPhone: "00000000000",
       createdAt: new Date(Date.now() - 15 * 60000),
     },
     {

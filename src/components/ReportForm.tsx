@@ -446,7 +446,7 @@ async function handleSubmit() {
                   onChange={(e) =>
                     set("contactPhone", e.target.value.replace(/[^\d+]/g, ""))
                   }
-                  placeholder="Ej: 59171234567"
+                  placeholder="Ej: 57XXXXXXXXX"
                   inputMode="tel"
                   className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-blue-500"
                 />

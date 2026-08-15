@@ -184,11 +184,12 @@ MONGODB_URI="mongodb+srv://<usuario>:<password>@<cluster>.mongodb.net/emergencia
 AUTH_SECRET="una-cadena-larga-y-aleatoria"
 
 # Teléfonos (código de país, sin +) que se registran como ADMIN. Separados por coma.
-ADMIN_PHONES="573154993117,59171234567"
+# IMPORTANTE: no subas valores reales a repos públicos; usa variables de entorno en el despliegue.
+ADMIN_PHONES="<CODIGO_PAIS><NUMERO_ADMIN_1>,<CODIGO_PAIS><NUMERO_ADMIN_2>"
 
 # Contacto WhatsApp por defecto para reenvío de alertas (opcional)
-DEFAULT_WHATSAPP="573154993117"
-NEXT_PUBLIC_DEFAULT_WHATSAPP="573154993117"
+DEFAULT_WHATSAPP="<CODIGO_PAIS><NUMERO>"
+NEXT_PUBLIC_DEFAULT_WHATSAPP="<CODIGO_PAIS><NUMERO>"
 
 # VAPID para Web Push (genera con: npx web-push generate-vapid-keys)
 VAPID_PUBLIC="B..."
