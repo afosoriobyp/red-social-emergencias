@@ -257,8 +257,10 @@ export default function AppShell({
 
   return (
     <main
-      className={`relative mx-auto w-full overflow-hidden ${
-        view === "map" ? "h-[calc(100dvh-64px)]" : "pb-28 lg:pb-8"
+      className={`relative mx-auto w-full ${
+        view === "map"
+          ? "h-[calc(100vh-64px)] overflow-hidden"
+          : "min-h-screen pb-28 lg:pb-8"
       }`}
     >
       {isOffline && (
