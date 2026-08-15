@@ -2,7 +2,6 @@ import { Siren } from "lucide-react";
 import Link from "next/link";
 import { getSession } from "@/lib/auth";
 import AccountMenu from "@/components/AccountMenu";
-import ChannelsDropdown from "@/components/ChannelsDropdown";
 
 export default async function Header() {
   const session = await getSession();
@@ -29,8 +28,6 @@ export default async function Header() {
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500" />
             Activo
           </span>
-          
-          <ChannelsDropdown />
 
           {session ? (
             <AccountMenu name={session.name} role={session.role} phone={session.phone} />

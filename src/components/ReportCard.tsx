@@ -74,11 +74,12 @@ export default function ReportCard({
   const [sendingComment, setSendingComment] = useState(false);
   const [commentError, setCommentError] = useState("");
   const [shareOpen, setShareOpen] = useState(false);
+  const [showImage, setShowImage] = useState(false);
   const shareRef = useRef<HTMLDivElement>(null);
 
   const origin = typeof window !== "undefined" ? location.origin : "";
   const shareUrl = `${origin}?rc=${report.id}`;
-  const shareText = `🚨 ${GRAVITY_META[report.gravity].label} · ${CATEGORY_LABELS[report.category]} · ${report.title}`;
+  const shareText = `*${GRAVITY_META[report.gravity].label} · ${CATEGORY_LABELS[report.category]} · ${report.title}*`;
   const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&src=emergiayuda`;
   const waUrl = `https://wa.me/?text=${encodeURIComponent(`${shareText}\n\n${shareUrl}`)}`;
   const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
@@ -266,11 +267,33 @@ export default function ReportCard({
       {report.image && (
         <div className="mt-3 overflow-hidden rounded-xl border border-gray-100">
           {/* eslint-disable-next-line @next/next/no-img-element */}
+          <button
+            type="button"
+            onClick={() => setShowImage(true)}
+            className="relative block h-32 w-full cursor-zoom-in focus:outline-none"
+            title="Ver imagen completa"
+          >
+            <img
+              src={report.image}
+              alt={`Foto de ${report.title}`}
+              className="h-full w-full object-cover"
+              loading="lazy"
+            />
+          </button>
+        </div>
+      )}
+
+      {showImage && (
+        <div
+          onClick={() => setShowImage(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-2"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={report.image}
+            src={report.image!}
             alt={`Foto de ${report.title}`}
-            className="max-h-64 w-full object-cover"
-            loading="lazy"
+            className="max-h-[90vh] max-w-[90vw] object-contain"
+            loading="eager"
           />
         </div>
       )}

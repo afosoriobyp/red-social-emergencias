@@ -18,11 +18,11 @@ export function buildWhatsAppLink(
 
   const mapUrl = `https://www.google.com/maps?q=${report.lat},${report.lng}`;
   const lines = [
-    `🚨 REPORTE ${GRAVITY_META[report.gravity].label.toUpperCase()}`,
-    `📌 ${TYPE_LABELS[report.type]} · ${CATEGORY_LABELS[report.category]}`,
-    `📍 ${report.title}`,
-    `📝 ${report.description}`,
-    `🗺️ Ver ubicación: ${mapUrl}`,
+    `*REPORTE ${GRAVITY_META[report.gravity].label.toUpperCase()}*`,
+    `*${TYPE_LABELS[report.type]} · ${CATEGORY_LABELS[report.category]}*`,
+    `*${report.title}*`,
+    `${report.description}`,
+    `*Ver ubicación:* ${mapUrl}`,
   ];
   if (group) {
     lines.push(`\nCanal: ${group}`);
@@ -36,7 +36,7 @@ export function buildAlertLink(phone: string, report: Pick<Report, "title" | "gr
   if (!digits) return "";
   const mapUrl = `https://www.google.com/maps?q=${report.lat},${report.lng}`;
   const message = encodeURIComponent(
-    `⚠️ ALERTA ${GRAVITY_META[report.gravity].label.toUpperCase()} en zona: ${report.title}\n🗺️ ${mapUrl}`,
+    `*ALERTA ${GRAVITY_META[report.gravity].label.toUpperCase()} en zona: ${report.title}\n*Ver ubicación:* ${mapUrl}`,
   );
   return `https://wa.me/${digits}?text=${message}`;
 }
