@@ -79,7 +79,7 @@ export default function ReportCard({
   const origin = typeof window !== "undefined" ? location.origin : "";
   const shareUrl = `${origin}?rc=${report.id}`;
   const shareText = `🚨 ${GRAVITY_META[report.gravity].label} · ${CATEGORY_LABELS[report.category]} · ${report.title}`;
-  const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+  const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&src=emergiayuda`;
   const waUrl = `https://wa.me/?text=${encodeURIComponent(`${shareText}\n\n${shareUrl}`)}`;
   const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
   const [reactError, setReactError] = useState("");
@@ -349,7 +349,11 @@ export default function ReportCard({
               href={fbUrl}
               target="_blank"
               rel="noreferrer"
-              onClick={() => setShareOpen(false)}
+              onClick={() => {
+                navigator.clipboard?.writeText(`${shareText}\n\n${shareUrl}`);
+                alert("Se abrirá Facebook con el enlace del reporte.\nInfo del reporte copiada: " + shareText);
+                setShareOpen(false);
+              }}
               className="flex items-center gap-2 w-full px-3 py-2 text-left text-xs text-blue-600 hover:bg-blue-50"
             >
               <span>📘</span> Facebook
