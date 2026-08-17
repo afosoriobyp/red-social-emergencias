@@ -98,7 +98,7 @@ function FitReports({
 export default function MapView({
   reports,
   onLocate,
-  locateOnMount = true,
+  locateOnMount = false,
 }: {
   reports: Report[];
   onLocate?: (lat: number, lng: number) => void;
