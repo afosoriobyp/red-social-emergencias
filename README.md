@@ -314,7 +314,7 @@ Cada ciudad/municipio es un **despliegue independiente** con su propia base de d
 4. Define `ADMIN_PHONES` con los teléfonos locales que serán administradores.
 5. Despliega. Repite para cada municipio.
 
-> ⚠️ En el formulario, el selector de ciudad trae **Roldanillo, Dosquebradas y Versalles** (se autodetecta con la geolocalización). Si necesitas más municipios, agrégalos en `CITIES` dentro de `src/components/ReportForm.tsx`.
+> ⚠️ Al ser **una instancia por ciudad**, el formulario asigna la ciudad automáticamente desde `NEXT_PUBLIC_CITY` (no hay selector de ciudad/municipio).
 
 ---
 
