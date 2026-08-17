@@ -2,7 +2,7 @@
 
 **Red social de respuesta ante emergencias** — una PWA construida con Next.js (App Router) + MongoDB Atlas para reportar y coordinar ayuda en tiempo real durante terremotos, accidentes, derrumbes, conflictos y otras emergencias.
 
-> Aplicación PWA tipo red social para la atención de emergencias con canales de **Reportes, Donaciones, Puntos de Acopio, Voluntarios y Atención Médica**, mapa interactivo, notificaciones por WhatsApp, autenticación por roles y un **dashboard de control de mando** para administradores y coordinadores.
+> Aplicación PWA tipo red social para la atención de emergencias con canales de **Reportes, Donaciones, Puntos de Acopio, Voluntarios, Atención Médica, Albergues y Noti/Novedades**, mapa interactivo, notificaciones por WhatsApp, autenticación por roles y un **dashboard de control de mando** para administradores y coordinadores.
 
 ---
 
@@ -69,11 +69,11 @@ Para agregar más subcategorías: edita `EMERGENCY_TYPES`, `TYPE_LABELS` y `CATE
 - **Exportación CSV** de reportes filtrados (18 columnas, `Content-Disposition` correcto).
 
 ### PWA robusta (offline-first)
-- `manifest.webmanifest`, icono SVG maskable y **Service Worker v3**:
+- `manifest.ts` dinámico (nombre desde `NEXT_PUBLIC_APP_NAME`), iconos PNG (192/512/maskable/apple-touch) y **Service Worker v2**:
   - Navigation preload + stale-while-revalidate para navegación.
   - Caché dedicado `/api/reports` (GET) con fallback offline.
   - Push notifications con `requireInteraction` para alertas críticas.
-- **IndexedDB** (`emergiayuda-offline`): caché de reportes + cola de acciones pendientes (crear reporte offline → sincroniza al volver online).
+- **IndexedDB** (`red-emergencias-offline`): caché de reportes + cola de acciones pendientes (crear reporte offline → sincroniza al volver online).
 - Indicador visual "Modo offline" en el feed.
 
 ### Seguridad endurecida
@@ -116,6 +116,7 @@ red-social-emergencia/
 ├─ src/
 │  ├─ app/
 │  │  ├─ layout.tsx            # Layout raíz + metadata PWA + registro SW
+│  │  ├─ manifest.ts           # Web App Manifest dinámico (NEXT_PUBLIC_APP_NAME)
 │  │  ├─ page.tsx              # Feed/mapa principal (SSR + paginación)
 │  │  ├─ globals.css           # Estilos globales (Tailwind)
 │  │  ├─ login/page.tsx        # Autenticación
@@ -142,12 +143,12 @@ red-social-emergencia/
 │  │  ├─ ProfileShell.tsx       # Perfil + mis reportes + password + modal reset (admin)
 │  │  ├─ ReportCard.tsx         # Tarjeta reporte (acciones icon-only, colores, hilo comentarios)
 │  │  ├─ ReportForm.tsx         # Formulario 3 pasos + encolado offline
-│  │  ├─ Header.tsx             # Header + ChannelsDropdown (client)
+│  │  ├─ Header.tsx             # Header (server, branding desde NEXT_PUBLIC_APP_NAME)
 │  │  ├─ ChannelsDropdown.tsx   # Dropdown canales (click/tap, click-outside close)
 │  │  ├─ UsersPanel.tsx         # Gestión usuarios + reset password modal
 │  │  ├─ AuditPanel.tsx         # Auditoría paginada
 │  │  ├─ CategoryFilter.tsx     # Filtros categoría (chips)
-│  │  ├─ MapView.tsx            # Mapa Leaflet + clustering
+│  │  ├─ MapView.tsx            # Mapa Leaflet centrado en la ciudad (env)
 │  │  └─ ... (BottomBar, PushManager, AccountMenu, etc.)
 │  ├─ hooks/
 │  │  ├─ useRealtimeReports.ts  # SSE hook (created/updated/deleted/comment)
@@ -215,8 +216,8 @@ NEXT_PUBLIC_APP_NAME="JuntosxRoldanillo"
 # Ciudad/municipio que atiende esta instancia
 NEXT_PUBLIC_CITY="Roldanillo"
 # Coordenadas del centro del municipio (centro inicial del mapa)
-NEXT_PUBLIC_CITY_LAT="4.4126"
-NEXT_PUBLIC_CITY_LNG="-76.1546"
+NEXT_PUBLIC_CITY_LAT="4.409907659333038"
+NEXT_PUBLIC_CITY_LNG="-76.14893382693923"
 # Radio por defecto de "Cerca de mí" en km (opcional, default 25)
 NEXT_PUBLIC_NEARBY_KM="25"
 ```
@@ -302,7 +303,7 @@ Cada ciudad/municipio es un **despliegue independiente** con su propia base de d
 |---|---|---|
 | `NEXT_PUBLIC_APP_NAME` | `JuntosxRoldanillo` | Branding (header, PWA, notificaciones) |
 | `NEXT_PUBLIC_CITY` | `Roldanillo` | Ciudad que atiende la instancia (valor inicial del formulario) |
-| `NEXT_PUBLIC_CITY_LAT` / `NEXT_PUBLIC_CITY_LNG` | `4.4126` / `-76.1546` | Centro inicial del mapa |
+| `NEXT_PUBLIC_CITY_LAT` / `NEXT_PUBLIC_CITY_LNG` | `4.409907659333038` / `-76.14893382693923` | Centro inicial del mapa |
 | `NEXT_PUBLIC_NEARBY_KM` | `25` | Radio por defecto de "Cerca de mí" (opcional) |
 | `MONGODB_URI` | …`/emergencia-roldanillo` | Base de datos **propia** de la ciudad |
 | `ADMIN_PHONES` | `57300…` | Administradores **locales** de la ciudad |
@@ -314,7 +315,7 @@ Cada ciudad/municipio es un **despliegue independiente** con su propia base de d
 4. Define `ADMIN_PHONES` con los teléfonos locales que serán administradores.
 5. Despliega. Repite para cada municipio.
 
-> ⚠️ Al ser **una instancia por ciudad**, el formulario asigna la ciudad automáticamente desde `NEXT_PUBLIC_CITY` (no hay selector de ciudad/municipio).
+> ⚠️ Al ser **una instancia por ciudad**: el formulario asigna la ciudad automáticamente desde `NEXT_PUBLIC_CITY` (no hay selector de ciudad/municipio), el **mapa abre centrado** en `NEXT_PUBLIC_CITY_LAT/LNG`, y el **feed filtra** los reportes de la instancia por esa misma ciudad (`ReportFilter.city` en `src/lib/store.ts`), también en SSE y export CSV.
 
 ---
 

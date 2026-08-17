@@ -8,8 +8,8 @@ import { Report, GRAVITY_META, TYPE_LABELS, CATEGORY_LABELS } from "@/lib/types"
 import { Link2, Navigation } from "lucide-react";
 
 const DEFAULT_CENTER: [number, number] = [
-  Number(process.env.NEXT_PUBLIC_CITY_LAT) || 4.4126,
-  Number(process.env.NEXT_PUBLIC_CITY_LNG) || -76.1546,
+  Number(process.env.NEXT_PUBLIC_CITY_LAT) || 4.409907659333038,
+  Number(process.env.NEXT_PUBLIC_CITY_LNG) || -76.14893382693923,
 ];
 const NEARBY_KM = Number(process.env.NEXT_PUBLIC_NEARBY_KM) || 25;
 
