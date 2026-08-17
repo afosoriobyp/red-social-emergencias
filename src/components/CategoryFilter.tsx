@@ -9,6 +9,8 @@ import {
   HeartHandshake,
   HeartPulse,
   Globe,
+  Building2,
+  BellRing,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -18,6 +20,8 @@ const ICONS: Record<string, LucideIcon> = {
   voluntarios: HeartHandshake,
   medico: HeartPulse,
   donaciones: Gift,
+  albergues: Building2,
+  noti: BellRing,
   todos: Globe,
 };
 
@@ -74,7 +78,7 @@ export default function CategoryFilter({
         className="scrollbar-none flex items-center gap-2 overflow-x-auto px-4 py-3 scroll-smooth"
       >
         {options.map((o) => {
-          const Icon = ICONS[o.key];
+          const Icon = ICONS[o.key] ?? Globe;
           const isActive = active === o.key;
           return (
             <button
