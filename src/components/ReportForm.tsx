@@ -28,6 +28,8 @@ const CATEGORY_ICON: Record<string, string> = {
   acopio: "📦",
   voluntarios: "🤝",
   medico: "🏥",
+  albergues: "🏠",
+  noti: "📢",
 };
 
 const CITIES = [

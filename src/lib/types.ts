@@ -4,6 +4,8 @@ export const CATEGORIES = [
   "acopio",
   "voluntarios",
   "medico",
+  "albergues",
+  "noti",
 ] as const;
 export type Category = (typeof CATEGORIES)[number];
 
@@ -13,6 +15,8 @@ export const CATEGORY_LABELS: Record<Category, string> = {
   acopio: "Punto Acopio",
   voluntarios: "Voluntarios",
   medico: "Atención Médica",
+  albergues: "Albergues",
+  noti: "Noti/Novedades",
 };
 
 export const EMERGENCY_TYPES = [
