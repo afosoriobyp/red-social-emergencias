@@ -145,6 +145,10 @@ async function handleSubmit() {
       setError("Define la ubicación del reporte.");
       return;
     }
+    if (!form.contactPhone.trim()) {
+      setError("El teléfono / WhatsApp de contacto es obligatorio.");
+      return;
+    }
     setSubmitting(true);
     try {
       const res = await fetch("/api/reports", {
@@ -174,6 +178,10 @@ async function handleSubmit() {
 
   function next() {
     setError("");
+    if (step === 1 && !form.contactPhone.trim()) {
+      setError("El teléfono / WhatsApp de contacto es obligatorio.");
+      return;
+    }
     setStep((s) => Math.min(s + 1, steps.length - 1));
   }
 
@@ -453,7 +461,7 @@ async function handleSubmit() {
 
               <div>
                 <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-gray-400">
-                  Teléfono / WhatsApp de contacto
+                  Teléfono / WhatsApp de contacto <span className="text-red-500">*</span>
                 </label>
                 <input
                   value={form.contactPhone}
@@ -462,6 +470,7 @@ async function handleSubmit() {
                   }
                   placeholder="Ej: 57XXXXXXXXX"
                   inputMode="tel"
+                  required
                   className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-blue-500"
                 />
                 <p className="mt-1.5 text-[11px] text-gray-400">

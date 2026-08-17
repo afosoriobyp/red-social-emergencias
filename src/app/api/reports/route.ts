@@ -89,6 +89,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const contactPhone = (body.contactPhone?.trim() ?? "").replace(/[^\d+]/g, "");
+    if (!contactPhone) {
+      return NextResponse.json(
+        { error: "El teléfono / WhatsApp de contacto es obligatorio." },
+        { status: 400 },
+      );
+    }
+
     const report = await getStore().createReport({
       title: body.title.trim(),
       type: body.type,
@@ -99,7 +107,7 @@ export async function POST(request: NextRequest) {
       lng,
       address: body.address?.trim() ?? "",
       city: body.city?.trim() ?? "",
-      contactPhone: (body.contactPhone?.trim() ?? "") || (session?.phone ?? ""),
+      contactPhone,
       status: "activo",
       createdBy: session?.id ?? "",
       createdByName: session?.name ?? "",

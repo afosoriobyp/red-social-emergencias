@@ -30,7 +30,7 @@ Para agregar más subcategorías: edita `EMERGENCY_TYPES`, `TYPE_LABELS` y `CATE
 - Formulario **paso a paso** (3 pasos): qué pasó → dónde → detalle.
 - **Geolocalización automática** del navegador + coordenadas manuales + referencia/zona.
 - Nivel de **gravedad** (crítica, alta, media, baja) con indicación visual por color.
-- Teléfono/WhatsApp de contacto.
+- Teléfono/WhatsApp de contacto (**obligatorio**): se precarga del usuario logueado y se usa para los enlaces de WhatsApp y coordinar ayuda.
 - **Modo offline**: si no hay conexión, el reporte se guarda en IndexedDB y se sincroniza al recuperar red.
 
 ### Tiempo real (SSE) — arquitectura multi-instancia
