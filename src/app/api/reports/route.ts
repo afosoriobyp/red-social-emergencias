@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
       lng,
       address: body.address?.trim() ?? "",
       city: body.city?.trim() ?? "",
-      contactPhone: body.contactPhone?.trim() ?? "",
+      contactPhone: (body.contactPhone?.trim() ?? "") || (session?.phone ?? ""),
       status: "activo",
       createdBy: session?.id ?? "",
       createdByName: session?.name ?? "",

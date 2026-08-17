@@ -83,6 +83,7 @@ export default function AppShell({
   const [gravity, setGravity] = useState("todas");
   const [query, setQuery] = useState("");
   const [showForm, setShowForm] = useState(false);
+  const [userPhone, setUserPhone] = useState("");
   const [notice, setNotice] = useState("");
   const [nearby, setNearby] = useState(false);
   const [nearbyLat, setNearbyLat] = useState(0);
@@ -249,8 +250,10 @@ export default function AppShell({
         setNotice("Tu cuenta ha sido bloqueada. Contacta a la administración.");
         return;
       }
+      setUserPhone(data.user?.phone ?? "");
     } catch {
       /* sin sesión: permitir reporte anónimo */
+      setUserPhone("");
     }
     setShowForm(true);
   }
@@ -487,8 +490,12 @@ export default function AppShell({
         onReport={() => openReport()}
       />
 
-      {showForm && (
-        <ReportForm onClose={() => setShowForm(false)} onSubmitted={handleCreated} />
+       {showForm && (
+        <ReportForm
+          onClose={() => setShowForm(false)}
+          onSubmitted={handleCreated}
+          creatorPhone={userPhone}
+        />
       )}
     </main>
   );

@@ -35,9 +35,11 @@ const CATEGORY_ICON: Record<string, string> = {
 export default function ReportForm({
   onClose,
   onSubmitted,
+  creatorPhone = "",
 }: {
   onClose: () => void;
   onSubmitted: (report: Report) => void;
+  creatorPhone?: string;
 }) {
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
@@ -55,7 +57,7 @@ export default function ReportForm({
     lng: 0 as number,
     address: "",
     city: process.env.NEXT_PUBLIC_CITY || "",
-    contactPhone: "",
+    contactPhone: creatorPhone ?? "",
     image: "",
   });
 
