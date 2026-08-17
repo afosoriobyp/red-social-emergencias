@@ -106,9 +106,13 @@ Para agregar más subcategorías: edita `EMERGENCY_TYPES`, `TYPE_LABELS` y `CATE
 ```
 red-social-emergencia/
 ├─ public/
-│  ├─ manifest.webmanifest     # Manifiesto PWA
-│  ├─ icon.svg                 # Icono de la app (maskable)
-│  └─ sw.js                    # Service worker v3 (navigation, API cache, fallback)
+│  ├─ icon_emergencia.png       # Icono de la app (fuente 512×512)
+│  ├─ icon-192.png              # Icono Android/Chrome (192×192)
+│  ├─ icon-512.png              # Icono Android/Chrome (512×512)
+│  ├─ icon-maskable-512.png     # Icono maskable (área segura 80%)
+│  ├─ apple-touch-icon.png      # Icono iOS (180×180)
+│  ├─ icon-32.png / icon-16.png # Favicon
+│  └─ sw.js                     # Service worker v2 (navigation, API cache, fallback)
 ├─ src/
 │  ├─ app/
 │  │  ├─ layout.tsx            # Layout raíz + metadata PWA + registro SW

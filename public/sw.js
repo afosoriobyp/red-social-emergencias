@@ -1,5 +1,5 @@
-const CACHE = "red-emergencias-v1";
-const CORE = ["/", "/manifest.webmanifest", "/icon.svg"];
+const CACHE = "red-emergencias-v2";
+const CORE = ["/", "/manifest.webmanifest", "/icon-192.png", "/icon-512.png"];
 const API_CACHE = "red-emergencias-api-v1";
 
 self.addEventListener("install", (event) => {
@@ -28,8 +28,8 @@ self.addEventListener("push", (event) => {
   const title = payload.title || self.__APP_NAME__ || "Red de emergencias";
   const options = {
     body: payload.body || "Hay una nueva alerta de emergencia.",
-    icon: "/icon.svg",
-    badge: "/icon.svg",
+    icon: "/icon-192.png",
+    badge: "/icon-192.png",
     data: { url: payload.url || "/", critical: !!payload.critical },
     vibrate: [200, 100, 200],
     requireInteraction: !!payload.critical,
