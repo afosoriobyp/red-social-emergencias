@@ -1,6 +1,6 @@
-const CACHE = "emergiayuda-v3";
+const CACHE = "red-emergencias-v1";
 const CORE = ["/", "/manifest.webmanifest", "/icon.svg"];
-const API_CACHE = "emergiayuda-api-v1";
+const API_CACHE = "red-emergencias-api-v1";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -25,7 +25,7 @@ self.addEventListener("push", (event) => {
   } catch {
     /* mensaje simple */
   }
-  const title = payload.title || "JuntosxRoldanillo";
+  const title = payload.title || self.__APP_NAME__ || "Red de emergencias";
   const options = {
     body: payload.body || "Hay una nueva alerta de emergencia.",
     icon: "/icon.svg",

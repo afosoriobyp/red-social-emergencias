@@ -17,6 +17,7 @@ interface IReport {
     coordinates: [number, number];
   };
   address?: string;
+  city?: string;
   contactPhone?: string;
   createdBy?: string;
   createdByName?: string;
@@ -50,6 +51,7 @@ const ReportSchema = new Schema<IReport>(
       coordinates: { type: [Number], required: true },
     },
     address: { type: String, default: "" },
+    city: { type: String, default: "" },
     contactPhone: { type: String, default: "" },
     createdBy: { type: String, default: "" },
     createdByName: { type: String, default: "" },

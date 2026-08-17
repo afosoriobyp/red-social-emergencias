@@ -11,7 +11,7 @@ export interface EventBus {
   dispose(): Promise<void>;
 }
 
-const CHANNEL = "emergiayuda:events";
+const CHANNEL = "red-emergencias:events";
 
 class MemoryEventBus implements EventBus {
   private handlers = new Set<(payload: string) => void>();

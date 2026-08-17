@@ -3,7 +3,7 @@
  * Guarda reportes en caché y cola de acciones pendientes (crear reporte).
  */
 
-const DB_NAME = "emergiayuda-offline";
+const DB_NAME = "red-emergencias-offline";
 const DB_VERSION = 1;
 
 interface QueuedAction {

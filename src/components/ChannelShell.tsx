@@ -25,7 +25,7 @@ const GRAVITY_ORDER: typeof GRAVITY_LEVELS = [
   "baja",
 ];
 
-const NEARBY_KM = 25;
+const NEARBY_KM = Number(process.env.NEXT_PUBLIC_NEARBY_KM) || 25;
 
 function haversineKm(
   lat1: number,

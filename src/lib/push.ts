@@ -3,7 +3,8 @@ import { PushSubscriptionData } from "./types";
 
 const publicKey = process.env.WEB_PUSH_PUBLIC_KEY;
 const privateKey = process.env.WEB_PUSH_PRIVATE_KEY;
-const subject = process.env.VAPID_SUBJECT ?? "mailto:admin@emergiayuda.app";
+const subject =
+  process.env.VAPID_SUBJECT ?? "mailto:admin@red-emergencias.app";
 
 const configured =
   Boolean(publicKey) && Boolean(privateKey);

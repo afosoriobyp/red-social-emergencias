@@ -13,15 +13,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "JuntosxRoldanillo";
+
 export const metadata: Metadata = {
-  title: "JuntosxRoldanillo · Red de respuesta ante emergencias",
+  title: `${APP_NAME} · Red de respuesta ante emergencias`,
   description:
     "Red social para reportar emergencias (terremotos, accidentes, derrumbes, conflictos), coordinar donaciones, puntos de acopio, voluntarios y atención médica en tiempo real.",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "JuntosxRoldanillo",
+    title: APP_NAME,
   },
 };
 

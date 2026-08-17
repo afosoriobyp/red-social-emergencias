@@ -198,6 +198,17 @@ VAPID_SUBJECT="mailto:admin@tudominio.com"
 
 # Opcional: Redis Pub/Sub para SSE multi-instancia (producción)
 # REDIS_URL="redis://user:pass@host:6379"
+
+# --- Configuración por ciudad/municipio (una instancia por ciudad) ---
+# Nombre de la aplicación para el branding (header, PWA, notificaciones)
+NEXT_PUBLIC_APP_NAME="JuntosxRoldanillo"
+# Ciudad/municipio que atiende esta instancia
+NEXT_PUBLIC_CITY="Roldanillo"
+# Coordenadas del centro del municipio (centro inicial del mapa)
+NEXT_PUBLIC_CITY_LAT="4.4126"
+NEXT_PUBLIC_CITY_LNG="-76.1546"
+# Radio por defecto de "Cerca de mí" en km (opcional, default 25)
+NEXT_PUBLIC_NEARBY_KM="25"
 ```
 
 > 💡 Copia `.env.example` a `.env.local` y reemplaza con tus credenciales reales. **Nunca cometas `.env.local`.**
@@ -272,6 +283,28 @@ Se recomienda **Vercel** (integración nativa con Next.js).
 4. Despliega. La PWA quedará instalable y con service worker.
 
 > **Tiempo real en producción:** el bus SSE usa **memoria** por defecto (mono-instancia). Si usas Vercel (serverless multi-instancia) **configura `REDIS_URL`** para activar el adaptador Redis Pub/Sub y lograr sincronización global entre instancias. Sin Redis, cada instancia mantiene sus propias conexiones SSE y los eventos no cruzarán entre ellas.
+
+### 🏙️ Despliegue multi-ciudad (una instancia por ciudad/municipio)
+
+Cada ciudad/municipio es un **despliegue independiente** con su propia base de datos y sus propios administradores. Los datos quedan aislados por base de datos; la app se parametriza con variables de entorno:
+
+| Variable | Ejemplo | Descripción |
+|---|---|---|
+| `NEXT_PUBLIC_APP_NAME` | `JuntosxRoldanillo` | Branding (header, PWA, notificaciones) |
+| `NEXT_PUBLIC_CITY` | `Roldanillo` | Ciudad que atiende la instancia (valor inicial del formulario) |
+| `NEXT_PUBLIC_CITY_LAT` / `NEXT_PUBLIC_CITY_LNG` | `4.4126` / `-76.1546` | Centro inicial del mapa |
+| `NEXT_PUBLIC_NEARBY_KM` | `25` | Radio por defecto de "Cerca de mí" (opcional) |
+| `MONGODB_URI` | …`/emergencia-roldanillo` | Base de datos **propia** de la ciudad |
+| `ADMIN_PHONES` | `57300…` | Administradores **locales** de la ciudad |
+
+**Pasos por cada ciudad:**
+1. Importa el repositorio en Vercel (o crea un *Preview Environment*).
+2. En las variables de entorno, cambia `NEXT_PUBLIC_APP_NAME`, `NEXT_PUBLIC_CITY` y las coordenadas al municipio correspondiente.
+3. Apunta `MONGODB_URI` a una base de datos distinta (p.ej. `emergencia-roldanillo`, `emergencia-dosquebradas`).
+4. Define `ADMIN_PHONES` con los teléfonos locales que serán administradores.
+5. Despliega. Repite para cada municipio.
+
+> ⚠️ En el formulario, el selector de ciudad trae **Roldanillo, Dosquebradas y Versalles** (se autodetecta con la geolocalización). Si necesitas más municipios, agrégalos en `CITIES` dentro de `src/components/ReportForm.tsx`.
 
 ---
 

@@ -83,7 +83,7 @@ export async function GET(request: NextRequest) {
       status: 200,
       headers: {
         "Content-Type": "text/csv; charset=utf-8",
-        "Content-Disposition": `attachment; filename="emergiayuda-reportes-${date}.csv"`,
+        "Content-Disposition": `attachment; filename="reportes-emergencias-${date}.csv"`,
         "Cache-Control": "no-store",
       },
     });

@@ -97,6 +97,7 @@ export async function POST(request: NextRequest) {
       lat,
       lng,
       address: body.address?.trim() ?? "",
+      city: body.city?.trim() ?? "",
       contactPhone: body.contactPhone?.trim() ?? "",
       status: "activo",
       createdBy: session?.id ?? "",
@@ -111,7 +112,7 @@ export async function POST(request: NextRequest) {
       const subs = users.flatMap((u) => u.pushSubscriptions ?? []);
       if (subs.length > 0) {
         const sent = await sendPushToSubscriptions(subs, {
-          title: "🚨 Alerta crítica",
+          title: `Alerta crítica · ${process.env.NEXT_PUBLIC_APP_NAME || "Red de emergencias"}`,
           body: report.title,
           url: "/",
           critical: true,

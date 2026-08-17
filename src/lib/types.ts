@@ -105,6 +105,7 @@ export interface ReportInput {
   lat: number;
   lng: number;
   address?: string;
+  city?: string;
   contactPhone?: string;
   status?: Status;
   createdBy?: string;

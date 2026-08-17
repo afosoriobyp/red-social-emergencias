@@ -30,6 +30,27 @@ const CATEGORY_ICON: Record<string, string> = {
   medico: "🏥",
 };
 
+const CITIES = [
+  { name: "Roldanillo", lat: 4.4126, lng: -76.1546 },
+  { name: "Dosquebradas", lat: 4.8367, lng: -75.6744 },
+  { name: "Versalles", lat: 4.5758, lng: -76.2009 },
+];
+
+function detectCity(lat: number, lng: number): string {
+  let best = "";
+  let bestDist = Infinity;
+  for (const c of CITIES) {
+    const dLat = c.lat - lat;
+    const dLng = c.lng - lng;
+    const dist = Math.sqrt(dLat * dLat + dLng * dLng);
+    if (dist < bestDist) {
+      bestDist = dist;
+      best = c.name;
+    }
+  }
+  return bestDist < 0.25 ? best : "";
+}
+
 export default function ReportForm({
   onClose,
   onSubmitted,
@@ -52,6 +73,7 @@ export default function ReportForm({
     lat: 0 as number,
     lng: 0 as number,
     address: "",
+    city: process.env.NEXT_PUBLIC_CITY || "",
     contactPhone: "",
     image: "",
   });
@@ -80,6 +102,8 @@ export default function ReportForm({
         set("lat", lat);
         set("lng", lng);
         set("address", await getAddressFromCoords(lat, lng));
+        const detected = detectCity(lat, lng);
+        if (detected) set("city", detected);
         setUseMyLocation(true);
         setLocating(false);
       },
@@ -323,6 +347,28 @@ async function handleSubmit() {
 
               <div className="flex items-center gap-3 text-[11px] text-gray-400">
                 <span className="h-px flex-1 bg-gray-200" /> O <span className="h-px flex-1 bg-gray-200" />
+              </div>
+
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-gray-400">
+                  Ciudad / municipio
+                </label>
+                <select
+                  value={form.city}
+                  onChange={(e) => set("city", e.target.value)}
+                  className="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-blue-500"
+                >
+                  <option value="">Selecciona la ciudad…</option>
+                  {CITIES.map((c) => (
+                    <option key={c.name} value={c.name}>
+                      {c.name}
+                    </option>
+                  ))}
+                </select>
+                <p className="mt-1.5 flex items-start gap-1.5 text-[11px] text-gray-400">
+                  <Navigation size={12} className="mt-0.5 shrink-0" />
+                  Se detecta automáticamente con tu ubicación. Ajústala si es necesario.
+                </p>
               </div>
 
               <div>

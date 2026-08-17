@@ -8,6 +8,7 @@ type Mode = "login" | "register";
 
 export default function AuthForm() {
   const router = useRouter();
+  const appName = process.env.NEXT_PUBLIC_APP_NAME || "JuntosxRoldanillo";
   const [mode, setMode] = useState<Mode>("login");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -66,9 +67,16 @@ export default function AuthForm() {
         <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-red-700 text-white shadow-xl shadow-red-600/30">
           <Siren size={28} />
         </span>
-        <h1 className="mt-4 text-2xl font-extrabold text-white">
-          Juntos<span className="text-red-400">xRoldanillo</span>
-        </h1>
+<h1 className="mt-4 text-2xl font-extrabold text-white">
+            {appName.split("x")[1] ? (
+              <>
+                {appName.split("x")[0]}
+                <span className="text-red-400">x{appName.split("x").slice(1).join("x")}</span>
+              </>
+            ) : (
+              appName
+            )}
+          </h1>
         <p className="mt-1 text-center text-sm text-slate-400">
           {mode === "login"
             ? "Inicia sesión para gestionar la emergencia"

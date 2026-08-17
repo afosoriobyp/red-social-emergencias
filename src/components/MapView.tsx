@@ -7,7 +7,10 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import { Report, GRAVITY_META, TYPE_LABELS, CATEGORY_LABELS } from "@/lib/types";
 import { Link2, Navigation } from "lucide-react";
 
-const DEFAULT_CENTER: [number, number] = [-16.4897, -68.1193];
+const DEFAULT_CENTER: [number, number] = [
+  Number(process.env.NEXT_PUBLIC_CITY_LAT) || 4.4126,
+  Number(process.env.NEXT_PUBLIC_CITY_LNG) || -76.1546,
+];
 
 function markerIcon(report: Report): L.DivIcon {
   const meta = GRAVITY_META[report.gravity];

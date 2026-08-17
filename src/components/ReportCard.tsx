@@ -80,7 +80,7 @@ export default function ReportCard({
   const origin = typeof window !== "undefined" ? location.origin : "";
   const shareUrl = `${origin}?rc=${report.id}`;
   const shareText = `*${GRAVITY_META[report.gravity].label} · ${CATEGORY_LABELS[report.category]} · ${report.title}*`;
-  const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&src=emergiayuda`;
+  const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&src=red-emergencias`;
   const waUrl = `https://wa.me/?text=${encodeURIComponent(`${shareText}\n\n${shareUrl}`)}`;
   const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
   const [reactError, setReactError] = useState("");
@@ -261,6 +261,12 @@ export default function ReportCard({
       {report.address && (
         <p className="mt-2 flex items-center gap-1 text-xs text-gray-400">
           <MapPin size={12} /> {report.address}
+        </p>
+      )}
+
+      {report.city && (
+        <p className="mt-1 text-[11px] font-medium text-gray-400">
+          {report.city}
         </p>
       )}
 

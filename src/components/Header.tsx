@@ -5,6 +5,8 @@ import AccountMenu from "@/components/AccountMenu";
 
 export default async function Header() {
   const session = await getSession();
+  const appName = process.env.NEXT_PUBLIC_APP_NAME || "JuntosxRoldanillo";
+  const [prefix, city] = appName.split("x");
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-900/95 backdrop-blur">
@@ -15,7 +17,14 @@ export default async function Header() {
           </span>
           <div className="min-w-0">
             <h1 className="truncate text-lg font-extrabold leading-tight text-white">
-              Juntos<span className="text-red-400">xRoldanillo</span>
+              {prefix && city ? (
+                <>
+                  {prefix}
+                  <span className="text-red-400">x{city}</span>
+                </>
+              ) : (
+                appName
+              )}
             </h1>
             <p className="text-[11px] font-medium text-slate-400">
               Red ciudadana de respuesta ante emergencias
