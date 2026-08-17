@@ -20,6 +20,7 @@ export async function GET(request: NextRequest) {
     status: params.get("status") ?? undefined,
     q: params.get("q") ?? undefined,
     createdBy: params.get("createdBy") ?? undefined,
+    city: process.env.NEXT_PUBLIC_CITY || "Roldanillo",
     lat: lat ? Number(lat) : undefined,
     lng: lng ? Number(lng) : undefined,
     radius: radius ? Number(radius) : undefined,

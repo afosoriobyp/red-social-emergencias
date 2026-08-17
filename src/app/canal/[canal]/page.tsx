@@ -18,7 +18,8 @@ export default async function CanalPage({
   if (!cat) notFound();
 
   const store = getStore();
-  const { reports, total } = await store.listReports({ category: cat }, { page: 1, limit: 20 });
+  const city = process.env.NEXT_PUBLIC_CITY || "Roldanillo";
+  const { reports, total } = await store.listReports({ category: cat, city }, { page: 1, limit: 20 });
   const commentCounts = await store.commentCountsByReport(reports.map((r) => r.id));
 
   return (

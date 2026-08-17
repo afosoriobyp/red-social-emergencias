@@ -20,6 +20,7 @@ export interface ReportFilter {
   status?: string;
   q?: string;
   createdBy?: string;
+  city?: string;
   lat?: number;
   lng?: number;
   radius?: number;
@@ -211,6 +212,7 @@ function mongoStore(): Store {
       if (filter.category) query.category = filter.category;
       if (filter.gravity) query.gravity = filter.gravity;
       if (filter.status) query.status = filter.status;
+      if (filter.city) query.city = filter.city;
       if (filter.q) {
         query.$or = [
           { title: { $regex: filter.q, $options: "i" } },
@@ -550,6 +552,7 @@ function memoryStore(): Store {
       if (filter.category) out = out.filter((r) => r.category === filter.category);
       if (filter.gravity) out = out.filter((r) => r.gravity === filter.gravity);
       if (filter.status) out = out.filter((r) => r.status === filter.status);
+      if (filter.city) out = out.filter((r) => r.city === filter.city);
       if (filter.createdBy) out = out.filter((r) => r.createdBy === filter.createdBy);
       if (filter.q) {
         const q = filter.q.toLowerCase();

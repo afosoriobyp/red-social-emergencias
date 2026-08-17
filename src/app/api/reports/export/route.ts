@@ -74,6 +74,7 @@ export async function GET(request: NextRequest) {
       gravity: params.get("gravity") ?? undefined,
       status: params.get("status") ?? undefined,
       q: params.get("q") ?? undefined,
+      city: process.env.NEXT_PUBLIC_CITY || "Roldanillo",
     });
 
     const csv = toCsv(reports);

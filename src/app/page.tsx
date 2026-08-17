@@ -6,7 +6,8 @@ export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const store = getStore();
-  const { reports, total } = await store.listReports({});
+  const city = process.env.NEXT_PUBLIC_CITY || "Roldanillo";
+  const { reports, total } = await store.listReports({ city });
   const commentCounts = await store.commentCountsByReport(
     reports.map((r) => r.id),
   );

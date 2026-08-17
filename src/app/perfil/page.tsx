@@ -15,7 +15,10 @@ export default async function PerfilPage() {
   const me = users.find((u) => u.id === session.id) ?? null;
   if (!me) redirect("/login");
 
-  const { reports: myReports } = await store.listReports({ createdBy: session.id });
+  const { reports: myReports } = await store.listReports({
+    createdBy: session.id,
+    city: process.env.NEXT_PUBLIC_CITY || "Roldanillo",
+  });
 
   return (
     <div className="flex min-h-dvh flex-col bg-slate-50">

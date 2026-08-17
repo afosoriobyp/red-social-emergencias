@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { Report } from "@/lib/types";
 
+const CITY = process.env.NEXT_PUBLIC_CITY || "Roldanillo";
+
 function normalize(report: Report): Report {
   if (typeof report.createdAt === "string") {
     return { ...report, createdAt: new Date(report.createdAt) };
@@ -11,6 +13,10 @@ function normalize(report: Report): Report {
     return { ...report, resolvedAt: new Date(report.resolvedAt) };
   }
   return report;
+}
+
+function sameCity(report: Report): boolean {
+  return !report.city || report.city === CITY;
 }
 
 export function useRealtimeReports(
@@ -27,6 +33,7 @@ export function useRealtimeReports(
     const onCreated = (e: Event) => {
       try {
         const report = normalize(JSON.parse((e as MessageEvent).data) as Report);
+        if (!sameCity(report)) return;
         setReports((prev) =>
           prev.some((r) => r.id === report.id) ? prev : [report, ...prev],
         );
@@ -47,6 +54,7 @@ export function useRealtimeReports(
     const onUpdated = (e: Event) => {
       try {
         const report = normalize(JSON.parse((e as MessageEvent).data) as Report);
+        if (!sameCity(report)) return;
         setReports((prev) =>
           prev.map((r) => (r.id === report.id ? report : r)),
         );

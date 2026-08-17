@@ -11,6 +11,23 @@ const DEFAULT_CENTER: [number, number] = [
   Number(process.env.NEXT_PUBLIC_CITY_LAT) || 4.4126,
   Number(process.env.NEXT_PUBLIC_CITY_LNG) || -76.1546,
 ];
+const NEARBY_KM = Number(process.env.NEXT_PUBLIC_NEARBY_KM) || 25;
+
+function haversineKm(
+  lat1: number,
+  lng1: number,
+  lat2: number,
+  lng2: number,
+): number {
+  const R = 6371;
+  const toRad = (n: number) => (n * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(a));
+}
 
 function markerIcon(report: Report): L.DivIcon {
   const meta = GRAVITY_META[report.gravity];
@@ -57,8 +74,15 @@ function FitReports({
       return;
     }
     positioned.current = true;
+    const near = reports.filter(
+      (r) => haversineKm(DEFAULT_CENTER[0], DEFAULT_CENTER[1], r.lat, r.lng) <= NEARBY_KM,
+    );
+    if (near.length === 0) {
+      map.setView(DEFAULT_CENTER, 12);
+      return;
+    }
     const bounds = L.latLngBounds(
-      reports.map((r) => [r.lat, r.lng] as [number, number]),
+      near.map((r) => [r.lat, r.lng] as [number, number]),
     );
     map.flyToBounds(bounds, {
       padding: [50, 50],

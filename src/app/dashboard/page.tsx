@@ -12,7 +12,9 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  const { reports } = await getStore().listReports({});
+  const { reports } = await getStore().listReports({
+    city: process.env.NEXT_PUBLIC_CITY || "Roldanillo",
+  });
 
   return (
     <div className="flex min-h-dvh flex-col bg-slate-50">
