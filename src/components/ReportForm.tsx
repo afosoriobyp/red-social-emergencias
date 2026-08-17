@@ -4,7 +4,7 @@ import { useState } from "react";
 import {
   CATEGORIES,
   CATEGORY_LABELS,
-  EMERGENCY_TYPES,
+  CATEGORY_TYPES,
   TYPE_LABELS,
   GRAVITY_LEVELS,
   GRAVITY_META,
@@ -250,7 +250,16 @@ async function handleSubmit() {
                   {CATEGORIES.map((c) => (
                     <button
                       key={c}
-                      onClick={() => set("category", c)}
+                      onClick={() => {
+                        set("category", c);
+                        if (
+                          !(CATEGORY_TYPES[c] as readonly string[]).includes(
+                            form.type,
+                          )
+                        ) {
+                          set("type", CATEGORY_TYPES[c][0]);
+                        }
+                      }}
                       className={`rounded-xl border px-3 py-2.5 text-center text-sm transition ${
                         form.category === c
                           ? "border-red-500 bg-red-50 font-semibold text-red-600"
@@ -266,10 +275,10 @@ async function handleSubmit() {
 
               <div>
                 <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
-                  Tipo de emergencia
+                  Tipo
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {EMERGENCY_TYPES.map((t) => (
+                  {CATEGORY_TYPES[form.category].map((t) => (
                     <button
                       key={t}
                       onClick={() => set("type", t)}

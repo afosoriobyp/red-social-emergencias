@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Report, CATEGORIES, CATEGORY_LABELS, GRAVITY_META, GRAVITY_LEVELS } from "@/lib/types";
+import { Report, CATEGORIES, CATEGORY_LABELS, CATEGORY_TYPES, GRAVITY_META, GRAVITY_LEVELS, TYPE_LABELS } from "@/lib/types";
 import { useRealtimeReports } from "@/hooks/useRealtimeReports";
 import { useCriticalAlert } from "@/hooks/useCriticalAlert";
 import ReportCard from "@/components/ReportCard";
@@ -65,6 +65,7 @@ export default function ChannelShell({
 }) {
   const [statusFilter, setStatusFilter] = useState("activo");
   const [gravity, setGravity] = useState("todas");
+  const [typeFilter, setTypeFilter] = useState("todos");
   const [query, setQuery] = useState("");
   const [nearby, setNearby] = useState(false);
   const [nearbyLat, setNearbyLat] = useState(0);
@@ -92,6 +93,8 @@ export default function ChannelShell({
       out = out.filter((r) => (r.status ?? "activo") === target);
     }
     if (gravity !== "todas") out = out.filter((r) => r.gravity === gravity);
+    if (typeFilter !== "todos")
+      out = out.filter((r) => r.type === typeFilter);
     if (query.trim()) {
       const q = query.trim().toLowerCase();
       out = out.filter(
@@ -106,7 +109,7 @@ export default function ChannelShell({
       );
     }
     return out;
-  }, [reports, statusFilter, gravity, query, nearby, nearbyLat, nearbyLng]);
+  }, [reports, statusFilter, gravity, typeFilter, query, nearby, nearbyLat, nearbyLng]);
 
   const criticalCount = useMemo(
     () =>
@@ -194,6 +197,24 @@ export default function ChannelShell({
                 {GRAVITY_ORDER.map((g) => (
                   <option key={g} value={g}>
                     {GRAVITY_META[g].label}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown
+                size={15}
+                className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400"
+              />
+            </div>
+            <div className="relative">
+              <select
+                value={typeFilter}
+                onChange={(e) => setTypeFilter(e.target.value)}
+                className="appearance-none rounded-xl border border-slate-200 bg-white py-2.5 pl-3 pr-8 text-sm font-medium text-slate-700 outline-none focus:border-slate-900"
+              >
+                <option value="todos">Todos</option>
+                {CATEGORY_TYPES[canal].map((t) => (
+                  <option key={t} value={t}>
+                    {TYPE_LABELS[t]}
                   </option>
                 ))}
               </select>

@@ -9,16 +9,22 @@
 ## ✨ Características
 
 ### Canales / Categorías
-- 🚨 **Reportes** — incidentes de emergencia (terremoto, incendio, inundación, derrumbe, accidente, conflicto, otro).
-- 🎁 **Donaciones** — ofertas y necesidades de ayuda.
-- 📦 **Puntos de Acopio** — centros de recepción de ayuda.
-- 🤝 **Voluntarios** — oferta de voluntariado y disponibilidad.
-- 🏥 **Atención Médica** — necesidades de centros y urgencias.no su
+Cada canal tiene sus propias **subcategorías** (campo `type`), que se eligen al reportar y se pueden filtrar dentro del canal:
+
+- 🚨 **Reportes** — incidentes: terremoto, incendio, inundación, derrumbe, accidente, conflicto.
+- 🎁 **Donaciones** — medicina, ropa, alimentos, agua, higiene.
+- 📦 **Puntos de Acopio** — alimentos, medicina, ropa, agua, herramientas.
+- 🤝 **Voluntarios** — logística, primeros auxilios, transporte, rescate.
+- 🏥 **Atención Médica** — urgencia, consulta, vacunación, apoyo psicológico.
+- 🏠 **Albergues** — refugio temporal, refugio permanente, capacidad.
+- 📢 **Noti/Novedades** — avisos e información comunitaria.
 - 🗺️ **Mapa** — vista geográfica de todos los incidentes.
 
+Para agregar más subcategorías: edita `EMERGENCY_TYPES`, `TYPE_LABELS` y `CATEGORY_TYPES` en `src/lib/types.ts`.
+
 ### Vistas dedicadas por canal
-- Rutas `/canal/reporte`, `/canal/donaciones`, `/canal/acopio`, `/canal/voluntarios`, `/canal/medico` con feed filtrado por categoría, paginación "Cargar más" y filtros propios (estado, gravedad, búsqueda, "cerca de mí").
-- Menú "Canales" en el header con acceso rápido (desktop y móvil).
+- Rutas `/canal/reporte`, `/canal/donaciones`, `/canal/acopio`, `/canal/voluntarios`, `/canal/medico`, `/canal/albergues`, `/canal/noti` con feed filtrado por categoría, paginación "Cargar más" y filtros propios (estado, subtipo, gravedad, búsqueda, "cerca de mí").
+- Acceso a canales desde el **BottomBar** y el **botón flotante de reporte**.
 
 ### Reporte de emergencias (fácil y rápido)
 - Formulario **paso a paso** (3 pasos): qué pasó → dónde → detalle.
